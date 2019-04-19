@@ -1,0 +1,32 @@
+.tracklist{
+    // background-color: aqua;
+    width: 95%;
+    margin: 5px auto;
+    border-collapse: collapse;
+    &__head{
+        border-bottom: 1px solid rgb(92, 92, 86);
+        color: #7c8280;
+    }
+    &__body tr{
+        &:nth-child(2n){
+            background-color: rgb(92, 92, 86);
+        }
+        &:hover{
+            background-color: rgb(55, 55, 52);
+        }
+
+    }
+    &__datatype{
+        padding: 10px;
+
+    }
+    &__datavalue{
+        padding: 7px;
+    }
+}
+
+.album__total-time{
+    color: #7c8280;
+    float: right;
+    padding: 5px 25px 5px 5px;
+}

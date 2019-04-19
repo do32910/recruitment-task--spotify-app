@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
 import { SearchBar } from './components/SearchBar'
 import { AlbumList } from './components/AlbumList'
 import { GetAlbums } from './components/GetAlbums'
+import { Container } from 'semantic-ui-react'
+import './variables.scss'
 
 class App extends Component {
   constructor(props){
@@ -14,17 +15,20 @@ class App extends Component {
   }
 
   handleSearch(searchTerm){
-    console.log("hi im search from app")
     GetAlbums(searchTerm)
       .then(response => this.setState({albums: response.albums.items}))
+      .catch(err => {
+        console.log("Something went wrong, see below for the error details:")
+        console.log(err)
+      })
     
   }
   render() {
     return (
-      <div className="App">
+      <Container>
         <SearchBar handleSearch={this.handleSearch}/>
         <AlbumList albums={this.state.albums}/>
-      </div>
+      </Container>
     );
   }
 }
