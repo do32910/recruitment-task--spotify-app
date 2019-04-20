@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { GetAlbumDetails } from '../GetAlbumDetails'
 import './AlbumDetails.scss'
+import { Segment, Placeholder } from 'semantic-ui-react'
 
 export default class AlbumDetails extends Component{
     constructor(props){
@@ -20,29 +21,7 @@ export default class AlbumDetails extends Component{
             })
     }
 
-    // convertMilisecondsToMinutes(timeInMs){
-    //         let fullMins = 0
-    //         while(timeInMs > 60000){
-    //             fullMins++
-    //             timeInMs -= 60000
-    //         }
-    //         let seconds = 0
-    //         while(timeInMs > 1000){
-    //             seconds++
-    //             timeInMs -= 1000
-    //         }
-    //         if(fullMins < 10){
-    //             fullMins = "0" + fullMins
-    //         }
-    //         if(seconds < 10){
-    //             seconds = "0" + seconds
-    //         }
-    //         return `${fullMins}:${seconds}`
-    // }
-
-    
     convertMilisecondsToMinutes(timeInMs){
-        console.log("time in ms", timeInMs)
         let minutes = Math.floor(timeInMs / 60000)
         let seconds = Math.floor((timeInMs - minutes*60000) / 1000)
         if(minutes < 10){
@@ -57,7 +36,6 @@ export default class AlbumDetails extends Component{
     render(){
         if(this.state.album){
         const tracks = this.state.album.tracks.items
-        console.log(this.state.album)
         return (
             <section>
                 <span className="album__total-time">Popularity: {this.state.album.popularity}% / Total time: {this.convertMilisecondsToMinutes(tracks.map((track) => track.duration_ms).reduce((track, next) => track+next))}</span>
@@ -81,7 +59,17 @@ export default class AlbumDetails extends Component{
                 </table>
             </section>)
         }else{
-            return null
+            return (
+            <Segment inverted>
+            <Placeholder inverted fluid>
+              <Placeholder.Paragraph>
+                <Placeholder.Line />
+                <Placeholder.Line />
+                <Placeholder.Line />
+              </Placeholder.Paragraph>
+            </Placeholder>
+          </Segment>
+            )
         }
     }
 }

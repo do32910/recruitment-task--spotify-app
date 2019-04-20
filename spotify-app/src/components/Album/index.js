@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Icon } from 'semantic-ui-react'
 import './Album.scss'
 import AlbumDetails from '../AlbumDetails'
+import imagePlaceholder from '../../assets/image_placeholder.png'
 
 export default class Album extends Component{
     constructor(props){
@@ -20,10 +21,11 @@ export default class Album extends Component{
 
     render(){
         const album = this.state.album
+        console.log(imagePlaceholder)
         return (
         <li className="album-container">
             <div className="album">
-            <img src={album.images[1].url} className="album__image"/>
+            <img src={album.images[1] ? album.images[1].url : imagePlaceholder} className="album__image"/>
             <section className="album__info">
                 <h1 className="album__title">{album.name}</h1>
                 <h2 className="album__artists">{album.artists.map(artist => `${artist.name}, `).join(" " ).slice(0, -2)}</h2> 
