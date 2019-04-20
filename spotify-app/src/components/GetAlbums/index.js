@@ -1,11 +1,11 @@
 export const GetAlbums = (searchTerm) => {
-    var numOfResults = 10;
-    return fetch(`https://api.spotify.com/v1/search?q=${searchTerm}&type=album&limit=${numOfResults}`, {
+    // var numOfResults = 10;
+    return fetch(`https://api.spotify.com/v1/search?q=${searchTerm}&type=album`, {
         method: 'GET',
         headers: {
             "Content-Type": 'application/json',
             "Accept": 'application/json',
-            "Authorization": 'Bearer BQDlmNbe0pFDwtJfKDpgkWc7qCLGxwRzTRmu1Zf1_EFud5eJP0vCoAf0nMQ8aDYf7ZbDksaaNQUmLI4fXYG4k0SJ5Woft8-ufJg3lp09ovvDRTo1y78Ib0YObKOAtlqn80PywZt706vQCRgAnA'
+            "Authorization": 'Bearer BQAUIejlqD1A5ha_sOsLZTq1EeHdfv4ZK4r83wp8UEZ1Nt8s_6eK3ZDNUnpLbP1MMDP5ONKJm_4CyDXcbqqZ9LN9mGoO5B6288y2qqXR4G7dimUKtOgzrQgQAPV5snN7LOlGwl62XrVc1FoozQ'
         }
     })
         .then(response => response.json())

@@ -1,0 +1,17 @@
+.sort__container{
+    width: 100%;
+    text-align: right;
+    color: #7c8280;
+    font-size: 12px;
+}
+
+.sort-btn{
+    color: #ffffff;
+    background: transparent;
+    border: none;
+    &:hover{
+        color: #167b54;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
