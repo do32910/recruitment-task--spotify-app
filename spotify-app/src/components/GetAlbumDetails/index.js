@@ -6,7 +6,7 @@ export const GetAlbumDetails = (albumId) => {
         headers: {
             "Content-Type": 'application/json',
             "Accept": 'application/json',
-            "Authorization": 'Bearer BQDlmNbe0pFDwtJfKDpgkWc7qCLGxwRzTRmu1Zf1_EFud5eJP0vCoAf0nMQ8aDYf7ZbDksaaNQUmLI4fXYG4k0SJ5Woft8-ufJg3lp09ovvDRTo1y78Ib0YObKOAtlqn80PywZt706vQCRgAnA'
+            "Authorization": 'Bearer BQC6cFZCLi6Cvuv0rmx5cIe4hx7BhnGDWmwVGZ9spcmEV49-PHQCwv9U6q0dvAQZxLi47WS4SYk1yiL9hYJ__WjiXxqXGA57AxpGkYIYDUoqP0UmT3UWgQvfD1h2q6r6bzwghdHTBglRBlg6jw'
         }
     }).then(response => response.json())
 }
