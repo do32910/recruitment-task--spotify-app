@@ -21,7 +21,6 @@ export default class Album extends Component{
 
     render(){
         const album = this.state.album
-        console.log(imagePlaceholder)
         return (
         <li className="album-container">
             <div className="album">

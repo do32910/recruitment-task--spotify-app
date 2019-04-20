@@ -10,22 +10,46 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      albums: undefined,
-      sorted: "ascending"
+      albums: [],
+      sorted: "ascending",
+      searchTerm: "",
+      limit: 10,
+      offset: 0,
+      searchDisabled: false
     }
     this.handleSearch = this.handleSearch.bind(this)
     this.handleSort = this.handleSort.bind(this)
   }
 
   handleSearch(searchTerm){
-    GetAlbums(searchTerm)
-      .then(response => this.setState({albums: response.albums.items}))
-      .catch(err => {
-        console.log("Something went wrong, see below for the error details:")
-        console.log(err)
-      })
+    this.setState({
+      searchTerm: searchTerm,
+      albums: [],
+      searchDisabled: true
+    }, () => this.getAlbums())
   }
   
+  getAlbums(){
+    GetAlbums(this.state.searchTerm, this.state.limit, this.state.offset)
+    .then(results => {
+      if(results.albums.items.length == 0){
+        this.setState({
+          albums: null,
+          searchDisabled: false
+        })
+      }else if(results.albums.items){
+        this.setState({
+          albums: this.state.albums.concat(results.albums.items),
+          searchDisabled: false
+        })
+      }
+    }).catch(err => {
+      console.log("Something went wrong, see below for the error details:")
+      console.log(err)
+    })
+
+  }
+
   handleSort(sortBy){
     var sortedAlbums;
     var sortOrder;
@@ -55,11 +79,23 @@ class App extends Component {
       })
     }
 
+    handleScroll = (e) => {
+      if((window.scrollY + window.innerHeight + 1) > document.body.scrollHeight){
+        this.setState({
+          offset: this.state.offset+this.state.limit
+        }, () => this.getAlbums())
+      }
+    }
+  
+    componentDidMount = () => {
+      window.addEventListener("scroll", this.handleScroll)
+    }
+
   render() {
     return (
       <Container>
-        <SearchBar handleSearch={this.handleSearch}/>
-        {this.state.albums ? <SortOptions handleSort={this.handleSort}/> : null}
+        <SearchBar handleSearch={this.handleSearch} searchDisabled={this.state.searchDisabled}/>
+        {this.state.albums.length > 0 ? <SortOptions handleSort={this.handleSort}/> : null}
         <AlbumList albums={this.state.albums}/>
       </Container>
     );
