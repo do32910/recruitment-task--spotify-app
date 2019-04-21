@@ -51,7 +51,7 @@ class App extends Component {
         }
       }
     }).catch(err => {
-      if(err.message == "401"){
+      if(err.message === "401"){
         Authorize()
       }
       console.log("Something went wrong, see the error code below:")

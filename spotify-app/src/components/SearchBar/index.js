@@ -10,7 +10,6 @@ export class SearchBar extends Component{
     }
 
     setSearchTerm(e){
-        console.log(e.target.value)
         this.setState({
             searchTerm: e.target.value
         })
