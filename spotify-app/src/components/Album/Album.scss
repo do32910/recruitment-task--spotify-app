@@ -7,9 +7,13 @@
     color: #f7f7f7;
     border-bottom: 1px solid rgb(92, 92, 86);
     padding: 20px 30px;
-    position: relative;
+    &__info{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
     &__title{
-        margin-bottom: 0;
+        margin-bottom: 10px;
     }
     &__artists{
         font-size: 18px;
@@ -17,7 +21,7 @@
         color: #7c8280;
     }
     &__details{
-
+        margin-bottom: 10px;
     }
     &__image{
         width: 200px;
@@ -26,7 +30,6 @@
     }
 }
 
-
 .btn__expand{
     padding: 10px 20px;
     border-radius: 20px;
@@ -34,8 +37,7 @@
     color: #f7f7f7;
     font-weight: normal;
     border: 3px solid #167b54;
-    position: absolute;
-    bottom: 20px;
+    width: 150px;
     &:hover{
         background-color: #167b54;
     }
@@ -44,5 +46,26 @@
         background-color: #0f5439;
         border: 3px solid #0f5439;
     }
+}
 
+@media(max-width: 530px){
+    .album{
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        &__image{
+            width: 300px;
+            height: 300px;
+            align-self: center;
+        }
+    }
+}
+
+@media(max-width: 360px){
+    .album{
+        &__image{
+            width: 200px;
+            height: 200px;
+        }
+    }
 }

@@ -5,13 +5,12 @@ import { GetAlbums } from './components/GetAlbums'
 import { Container } from 'semantic-ui-react'
 import { SortOptions } from './components/SortOptions'
 import { Authorize } from './components/Authorization'
-import './variables.scss'
 
 class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      albums: [],
+      albums: undefined,
       sorted: "ascending",
       searchTerm: "",
       limit: 10,
@@ -23,37 +22,39 @@ class App extends Component {
     this.handleSort = this.handleSort.bind(this)
   }
 
-  // componentWillMount(){
-  //   Authorize();
-  // }
-
   handleSearch(searchTerm){
     this.setState({
       searchTerm: searchTerm,
-      albums: [],
-      searchDisabled: true
+      searchDisabled: true,
+      albums: []
     }, () => this.getAlbums())
   }
   
   getAlbums(){
     GetAlbums(this.state.token, this.state.searchTerm, this.state.limit, this.state.offset)
     .then(results => {
-      if(results.albums.items.length == 0){
+      if(results.albums.total === 0){
         this.setState({
           albums: null,
           searchDisabled: false
         })
       }else if(results.albums.items){
+        if(this.state.albums){
         this.setState({
           albums: this.state.albums.concat(results.albums.items),
           searchDisabled: false
-        })
+        })}else{
+          this.setState({
+            albums: results.albums.items,
+            searchDisabled: false
+          })
+        }
       }
     }).catch(err => {
       if(err.message == "401"){
         Authorize()
       }
-      console.log("Something went wrong, see below for the error details:")
+      console.log("Something went wrong, see the error code below:")
       console.log(err)
     })
 
@@ -101,11 +102,10 @@ class App extends Component {
     }
 
   render() {
-    console.log(this.state.token)
     return (
       <Container>
         <SearchBar handleSearch={this.handleSearch} searchDisabled={this.state.searchDisabled}/>
-        {this.state.albums.length > 0 ? <SortOptions handleSort={this.handleSort}/> : null}
+        {this.state.albums ? <SortOptions handleSort={this.handleSort}/> : null}
         <AlbumList albums={this.state.albums} token={this.state.token}/>
       </Container>
     );

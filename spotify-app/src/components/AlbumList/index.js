@@ -1,13 +1,12 @@
     
-import React, { Component } from 'react'
+import React from 'react'
 import Album from '../Album'
-import './AlbumList.scss'
 
 export const AlbumList = (props) => {
-    if(!props.albums){
+    if(props.albums === undefined){
         return null
     }
-    if(props.albums.length < 1){
+    if(props.albums === null){
         return (
             <div>No results found</div>
         )

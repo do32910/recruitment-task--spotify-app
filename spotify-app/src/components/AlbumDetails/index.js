@@ -21,24 +21,42 @@ export default class AlbumDetails extends Component{
             })
     }
 
-    convertMilisecondsToMinutes(timeInMs){
-        let minutes = Math.floor(timeInMs / 60000)
-        let seconds = Math.floor((timeInMs - minutes*60000) / 1000)
-        if(minutes < 10){
-            minutes = "0" + minutes
+    convertMiliseconds(timeInMs){
+        let hour=0, minute=0, second=0
+        while(timeInMs >= 3600000){
+            timeInMs-= 3600000
+            hour++
+        }while(timeInMs >= 60000){
+            timeInMs -= 60000
+            minute++
+        }while(timeInMs >= 1000){
+            timeInMs -= 1000
+            second++
         }
-        if(seconds < 10){
-            seconds = "0" + seconds
-        }
-        return `${minutes}:${seconds}`
-}
+        return this.formatTime(hour, minute, second)
+    }
 
+    formatTime(hour, minute, second){
+        if(hour < 10){
+            hour = "0" + hour
+        }if(minute < 10){
+            minute = "0" + minute
+        }if(second < 10){
+            second = "0" + second
+        }
+    
+        if(hour < 1){
+            return `${minute}:${second}`
+        }
+        return `${hour}:${minute}:${second}`
+    }
+    
     render(){
         if(this.state.album){
         const tracks = this.state.album.tracks.items
         return (
             <section>
-                <span className="album__total-time">Popularity: {this.state.album.popularity}% / Total time: {this.convertMilisecondsToMinutes(tracks.map((track) => track.duration_ms).reduce((track, next) => track+next))}</span>
+                <span className="album__total-time">Popularity: {this.state.album.popularity}% / Total time: {this.convertMiliseconds(tracks.map((track) => track.duration_ms).reduce((track, next) => track+next))}</span>
                 <table className="tracklist">
                     <thead className="tracklist__head">
                         <tr>
@@ -52,7 +70,7 @@ export default class AlbumDetails extends Component{
                             <tr key={`${this.state.album.id}_${track.track_number}`}>
                                 <td className="tracklist__datavalue">{track.track_number}</td>
                                 <td className="tracklist__datavalue">{track.name}</td>
-                                <td className="tracklist__datavalue">{this.convertMilisecondsToMinutes(track.duration_ms)}</td>
+                                <td className="tracklist__datavalue">{this.convertMiliseconds(track.duration_ms)}</td>
                             </tr>
                         ))}
                     </tbody>

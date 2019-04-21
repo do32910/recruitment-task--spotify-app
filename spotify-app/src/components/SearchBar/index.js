@@ -1,17 +1,6 @@
 import React, { Component } from 'react'
 import './SearchBar.scss'
 
-// export const SearchBar = (props) => {
-//     let searchTerm = React.createRef()
-//     console.log(searchTerm.current)
-//  return (
-//         <div className="ui big action input search-bar">
-//             <input type="text" placeholder="Search..." ref={searchTerm}/>
-//             <button className="ui icon button" onClick={() => {props.handleSearch(searchTerm.current.value)}}><i aria-hidden="true" className="search icon"></i></button>
-//         </div>
-//  )   
-// }
-
 export class SearchBar extends Component{
     constructor(props){
         super(props)
@@ -21,6 +10,7 @@ export class SearchBar extends Component{
     }
 
     setSearchTerm(e){
+        console.log(e.target.value)
         this.setState({
             searchTerm: e.target.value
         })
