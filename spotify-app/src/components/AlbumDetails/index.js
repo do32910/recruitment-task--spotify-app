@@ -13,7 +13,7 @@ export default class AlbumDetails extends Component{
     }
 
     getDetails = () => {
-        GetAlbumDetails(this.props.albumId)
+        GetAlbumDetails(this.props.albumId, this.props.token)
             .then(album => {
                 this.setState({
                     album: album

@@ -14,7 +14,7 @@ export const AlbumList = (props) => {
     }else{
         return (
         <ul>
-            {props.albums.map(album => <Album album={album} key={album.id}/>)}
+            {props.albums.map(album => <Album album={album} key={album.id} token={props.token}/>)}
         </ul>
         )
     }

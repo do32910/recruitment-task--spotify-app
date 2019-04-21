@@ -38,7 +38,7 @@ export default class Album extends Component{
                 </button>
             </section>
             </div>
-            {this.state.shouldDetailsBeDisplayed ? <AlbumDetails albumId={album.id}/> : null}
+            {this.state.shouldDetailsBeDisplayed ? <AlbumDetails albumId={album.id} token={this.props.token}/> : null}
         </li>
         )
     }
